@@ -4,6 +4,7 @@ import "./App.css";
 import Description from "./components/Description/Description";
 import Options from "./components/Options/Options";
 import Feedback from "./components/Feedback/Feedback";
+import Notification from "./components/Notification/Notification";
 
 const App = () => {
   const [stan, setStan] = useState(() => {
@@ -27,9 +28,6 @@ const App = () => {
       ...prevFeedback,
       [feedbackType]: prevFeedback[feedbackType] + 1,
     }));
-    {
-      feedbackType === "reset" ? updateReset() : "";
-    }
   };
 
   const updateReset = () => {
@@ -50,13 +48,16 @@ const App = () => {
           total={totalFeedback}
           updateReset={updateReset}
         />
-        <Feedback
+    
+        {totalFeedback === 0 ? (
+          <Notification />
+        ) : <Feedback
           good={stan.good}
           neutral={stan.neutral}
           bad={stan.bad}
           totalFeedback={totalFeedback}
           totalPositive={totalPositive}
-        />
+        />}
       </div>
     </>
   );
